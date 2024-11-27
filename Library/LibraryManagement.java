@@ -10,6 +10,9 @@ public class LibraryManagement {
     private void run() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
+        
+        // Access for singleton instance of transaction
+        Transaction transaction = Transaction.getTransaction();
 
         while (running) {
             System.out.println("===========================");
@@ -30,101 +33,81 @@ public class LibraryManagement {
             switch (choice) {
                 case 1:
                     System.out.print("Enter member ID: ");
-                    int id = scanner.nextInt();
+                    int memberId = scanner.nextInt();
                 	System.out.print("Enter member name: ");
-                    String name = scanner.next();
-                    
+                    String memberName = scanner.next();
+                  
                     scanner.nextLine();
 
-                    Member newMember = new Member(id, name);
-                    library.addMember(newMember);
-                    System.out.println("Member added successfully.");
+                    library.addMember(new Member(memberId, memberName));
+                    System.out.println("Member added.");
                     break;
                 case 2:
                     System.out.print("Enter book ID: ");
-                    id = scanner.nextInt();
+                    int bookId = scanner.nextInt();
                 	System.out.print("Enter book title: ");
-                    String title = scanner.next();
+                    String bookTitle = scanner.next();
                     
                     scanner.nextLine();
 
-                    Book newBook = new Book(id, title);
-                    library.addBook(newBook);
-                    System.out.println("Book added to library successfully.");
+                    library.addBook(new Book(bookId, bookTitle));
+                    System.out.println("Book added.");
                     break;
                 case 3:
-                	System.out.println("\n--- Available Members ---");
-                    for (Member member : library.getMembers()) {
-                        System.out.println(member.getId() + ". " + member.getName());
-                    }
-                    
-                    System.out.print("Enter member ID: ");
-                    int memberId = scanner.nextInt();
-                    
-                    System.out.println("\n--- Available Books ---");
-                    for (Book book : library.getBooks()) {
-                        if (book.isAvailable())
-                            System.out.println(book.getId() + ". " + book.getTitle());
-                    }
-                    
-                    System.out.print("Enter book ID: ");
-                    int bookId = scanner.nextInt();
-                    
-                    scanner.nextLine();
-
-                    Member member = library.findMemberById(memberId);
-                    Book book = library.findBookById(bookId);
-
-                    if (member != null && book != null) {
-                    	Transaction.borrowBook(book, member);
-                    } else {
-                        System.out.println("Invalid member or book ID.");
-                    }
-                    break;
+                	// To borrow book
+                	performTransaction(scanner, transaction, true);
+                	break;
                 case 4:
-                	System.out.print("Enter member ID: ");
-                    memberId = scanner.nextInt();
-                    
-                    System.out.print("Enter book ID: ");
-                    bookId = scanner.nextInt();
-                    
-                    scanner.nextLine();
-
-                    member = library.findMemberById(memberId);
-                    book = library.findBookById(bookId);
-
-                    if (member != null && book != null) {
-                    	Transaction.returnBook(book, member);
-                    } else {
-                        System.out.println("Invalid member or book ID.");
-                    }
-                    break;
+                	// To return book
+                	performTransaction(scanner, transaction, false);
+                	break;
                 case 5:
-                	System.out.print("Enter member ID: ");
+                	System.out.println("Enter member ID: ");
                     memberId = scanner.nextInt();
                     scanner.nextLine();
-
-                    Member specificMember = library.findMemberById(memberId);
                     
+                    Member specificMember = library.findMemberById(memberId);
+                   
                     if (specificMember != null) {
-                        System.out.println("Books borrowed by " + specificMember.getName() + ":");
-                        for (Book bk : specificMember.getBorrowedBooks()) {
-                            System.out.println(" - " + bk.getTitle());
-                        }
-                    } else {
-                        System.out.println("Invalid member ID.");
-                    }
-                    break;
+                    	System.out.println("books borrowed by: " + specificMember.getName());
+                    	for (Book book : specificMember.getBorrowedBooks()) {
+                    		System.out.println("-" + book.getTitle());
+                    	}
+                    	} else {
+                    		System.out.println("Invalid member ID.");
+                    	}
+                    	break;
                 case 6:
-                	Transaction.displayTransactionHistory();
-                    break;
+                	// To display transaction history
+                	System.out.println("Transaction hisotry feature is not implemented");
+                	break;
                 case 7:
-                    System.out.println("Exiting. Good Bye..");
-                    running = false;
-                    break;
+                	System.out.println("Exiting. Goodbye!");
+                	running = false;
+                	break;
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
         }
-    }
+        scanner.close();
+        
+}
+private void performTransaction(Scanner scanner, Transaction transaction, boolean isBorrow) {
+	System.out.print("Enter member ID: ");
+	int memberId = scanner.nextInt();
+	System.out.print("Enter book ID: ");
+	int bookId = scanner.nextInt();
+	scanner.nextLine();
+	
+	Member member = library.findMemberById(memberId);
+	Book book = library.findBookById(bookId);
+	
+	if (member != null && book != null) {
+		if (isBorrow) {
+			transaction.borrowBook(book, member);
+		}else {
+			System.out.println("Invalid book or member ID.");
+		}
+	}
+}
 }
