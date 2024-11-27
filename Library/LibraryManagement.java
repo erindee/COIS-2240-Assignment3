@@ -79,7 +79,7 @@ public class LibraryManagement {
                     	break;
                 case 6:
                 	// To display transaction history
-                	System.out.println("Transaction hisotry feature is not implemented");
+                	performTransaction(scanner, transaction, false);
                 	break;
                 case 7:
                 	System.out.println("Exiting. Goodbye!");
@@ -106,8 +106,10 @@ private void performTransaction(Scanner scanner, Transaction transaction, boolea
 		if (isBorrow) {
 			transaction.borrowBook(book, member);
 		}else {
+			transaction.returnBook(book, member);
+		}
+	} else {
 			System.out.println("Invalid book or member ID.");
 		}
 	}
-}
 }

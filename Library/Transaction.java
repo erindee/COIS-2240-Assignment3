@@ -2,6 +2,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 public class Transaction {
 	//Singleton
@@ -46,6 +49,22 @@ public class Transaction {
     		writer.write(transactionDetails + "\n");
     	} catch (IOException e) {
     		System.out.println("Error occured while saving transaction: " + e.getMessage());
+    	}
+    }
+    public void displayTransactionHistory() {
+    	File file = new File("transactions.txt");
+    	if (!file.exists()) {
+    		System.out.println("No transaction history found.");
+    		return;
+    	}
+    	try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+    		String line;
+    		System.out.println("Transaction History: ");
+    		while ((line = reader.readLine()) != null) {
+    			System.out.println(line);
+    		}
+    	} catch (IOException e) {
+    		System.out.println("Error occured while reading transaction history.");
     	}
     }
     // Get the current date and time
