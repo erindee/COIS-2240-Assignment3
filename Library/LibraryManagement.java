@@ -85,7 +85,8 @@ public class LibraryManagement {
                     	break;
                 case 6:
                 	// To display transaction history
-                	performTransaction(scanner, transaction, false);
+                	System.out.println("Transaction Hisotry: ");
+                	transaction.displayTransactionHistory();
                 	break;
                 case 7:
                 	System.out.println("Exiting. Goodbye!");

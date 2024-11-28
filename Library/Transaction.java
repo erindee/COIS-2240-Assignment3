@@ -25,7 +25,7 @@ public class Transaction {
 		if (book.isAvailable()) {
 			book.borrowBook();
 			member.borrowBook(book);
-			String transactionDetails = getCurrentDateTime() + " - Borrowing: " + member.getName() + " borrowed " + book.getTitle();
+			String transactionDetails = getCurrentDateTime() + ": " + member.getName() + " borrowed " + book.getTitle();
 			System.out.println(transactionDetails);
 			saveTransaction(transactionDetails);
         } else {
@@ -37,7 +37,7 @@ public class Transaction {
         if (member.getBorrowedBooks().contains(book)) {
             member.returnBook(book);
             book.returnBook();
-            String transactionDetails = getCurrentDateTime() + " - Returning: " + member.getName() + " returned " + book.getTitle();
+            String transactionDetails = getCurrentDateTime() + ": " + member.getName() + " returned " + book.getTitle();
             System.out.println(transactionDetails);
             saveTransaction(transactionDetails);
         } else {
