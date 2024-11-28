@@ -39,8 +39,11 @@ public class LibraryManagement {
                   
                     scanner.nextLine();
 
-                    library.addMember(new Member(memberId, memberName));
-                    System.out.println("Member added.");
+                    if (library.addMember(new Member(memberId, memberName))) {
+                    	System.out.println("Member added.");
+                    } else {
+                    System.out.println("Failed to add new member. Member ID is duplicate.");
+                    }
                     break;
                 case 2:
                     System.out.print("Enter book ID: ");
@@ -50,8 +53,11 @@ public class LibraryManagement {
                     
                     scanner.nextLine();
 
-                    library.addBook(new Book(bookId, bookTitle));
-                    System.out.println("Book added.");
+                    if (library.addBook(new Book(bookId, bookTitle))) {
+                    	System.out.println("Book added.");
+                    } else {
+                    	System.out.println("Failed to add new book. Book ID is duplicate.");
+                    }
                     break;
                 case 3:
                 	// To borrow book
