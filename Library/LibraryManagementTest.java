@@ -31,20 +31,19 @@ public class LibraryManagementTest {
                  Book invalidBook1 = new Book(1000, "Invalid Book 1");
                  fail("Exception should be thrown for invalid book ID");
              } catch (Exception x) {
-                 assertEquals("Invalid ID", x.getMessage());
+                 assertEquals("Invalid Book ID", x.getMessage());
              }
-             
              try {
                  Book invalidBook2 = new Book(99, "Invalid Book 2");
                  fail("Exception should be thrown for invalid book ID");
              } catch (Exception x) {
                  assertEquals("Invalid Book ID", x.getMessage());
              }
-		 } catch (Exception x) {
-		        fail("Exception should not occur: " + x.getMessage());
-		 }
-
-    }
+		} catch (Exception x) {
+	        fail("Exception should not occur: " + x.getMessage());
+	    }      
+	}
+		
 	@Test
 	 public void testBorrowReturn() throws Exception {
 		// To create member and book object
