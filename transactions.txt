@@ -3,3 +3,7 @@
 2024-11-28 13:39:49: Anne borrowed AI
 2024-11-28 13:40:08: George returned Math
 2024-11-28 13:40:15: Anne borrowed Math
+2024-12-04 13:03:36: Erin borrowed Programming Book
+2024-12-04 13:03:40: Erin borrowed Programming Book
+2024-12-04 13:04:44: Erin borrowed Programming Book
+2024-12-04 13:05:15: Erin borrowed Programming Book

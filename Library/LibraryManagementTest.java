@@ -1,77 +1,113 @@
-/*import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 
 public class LibraryManagementTest {
+	//private LibraryManagement libraryManagement;
+	private Library library;
+	private Transaction transaction;
 	
-	// To test for valid Book IDs
-	@Test
-	public void testBookId() throws Exception{
-		Book validBook1 = new Book(100, "Programming");
-		Book validBook2 = new Book(999, "AI");
-		Book invalidBook1 = new Book(1000, "Invalid");
-		Book invalidBook2 = new Book(50, "Invalid");
-		
-		// Assertions for valid Ids
-		assertNotNull(validBook1);
-		assertNotNull(validBook2);
-		
-		// Assertions for invalid Ids
-		try {
-			invalidBook1 = new Book(1000, "Invalid");
-			fail("exception for invalid id > 999");
-		} catch (Exception x) {
-			assertEquals("Invlaid book Id", x.getMessage());
-		}
-		
-		try {
-			invalidBook2 = new Book(50, "Invalid");
-			fail("Exception for invalid Id < 100");
-		} catch (Exception x) {
-			assertEquals("Invalid book Id", x.getMessage());
-		}
-	} catch (Exception x) {
-		fail("Exception should not happen here: " + x.getMessage());
+	@Before
+	public void setUp() {
+		library = new Library();
+		transaction = Transaction.getTransaction();		
 	}
-		
-	}
+
 	@Test
-	public void testBorrowReturn() {
-		Book book = new Book(100, "Programming");
-		Member member = new Member(1111, "george");
-		
-		// Assertions for the book being available to borrow
-		assertTrue(library.addBook(book));
-		assertTrue(library.addMember(member));
-		
-		// To borrow book
-		assertTrue(transaction.borrowBook(book, member));
-		
-		// Assertion for the book being unavailable
-		assertFalse(book.isAvailable());
-		
-		// Attempt for borrowing the book again
-		assertFalse(transaction.borrowBook(book, member));
-		
-		// To return book
-		assertTrue(transaction.returnBook(book, member));
-		
-		// Assertion for the book being available again
-		assertTrue(book.isAvailable());
-		
-		// To attempt to return book again
-		assertFalse(transaction.returnBook(book, member));
+	public void testBookId() {
+		try {
+        	 // To test with valid IDs
+        	 Book validBook1 = new Book(100, "Valid Book 1");
+             assertTrue("Valid book ID should pass", validBook1.isValidId());
+             
+             Book validBook2 = new Book(999, "Valid Book 2");
+             assertTrue("Valid book ID should pass", validBook2.isValidId());
+             
+             // To test with invalid IDs
+             try {
+                 Book invalidBook1 = new Book(1000, "Invalid Book 1");
+                 fail("Exception should be thrown for invalid book ID");
+             } catch (Exception x) {
+                 assertEquals("Invalid ID", x.getMessage());
+             }
+             
+             try {
+                 Book invalidBook2 = new Book(99, "Invalid Book 2");
+                 fail("Exception should be thrown for invalid book ID");
+             } catch (Exception x) {
+                 assertEquals("Invalid Book ID", x.getMessage());
+             }
+		 } catch (Exception x) {
+		        fail("Exception should not occur: " + x.getMessage());
+		 }
+
+    }
+	@Test
+	 public void testBorrowReturn() throws Exception {
+		// To create member and book object
+		 Member member = new Member(1, "Erin");
+	        Book book = new Book(101, "Programming Book");
+	        // To add member and book to library system
+	        library.addMember(member);
+	        library.addBook(book);
+	        
+	        // To borrow the book
+	        transaction.borrowBook(book, member);
+	        
+	        // To see if the book has been borrowed right
+	        assertTrue("Book should be borrowed", member.getBorrowedBooks().contains(book));
+	        
+	        // To try borrowing the book again
+	        try {
+	            transaction.borrowBook(book, member);
+	            fail("Book should not be borrowed again");
+	        } catch (Exception x) {
+	            assertEquals("Book already being borrowed", x.getMessage());
+	        }
+	        
+	        // To return the book
+	        transaction.returnBook(book, member);
+
+	        // To see if the book has been returned
+	        assertFalse("Book should be removed from borrowed list", member.getBorrowedBooks().contains(book));
+
+	        // To try returning the same book again
+	        try {
+	            transaction.returnBook(book, member);
+	            fail("Book should not be returned again");
+	        } catch (Exception x) {
+	            assertEquals("Book has already been returned", x.getMessage());
+	        }
 	}
 	
+	
 	@Test
-	public void testSingletonTransaction() {
-		try {
-			// To test if we can retrieve the singleton instance
-			Transaction instance1 = Transaction.getInstance();
-			Transaction instance2 = Transaction.getInstance();
-			
-			// Assertion to see that both instances are the same
-			
-		}
+    public void testSingletonTransaction() {
+        try {
+            // To get the constructor
+            Constructor<Transaction> constructor = Transaction.class.getDeclaredConstructor();
+            
+            // Make the constructor accessible
+            constructor.setAccessible(true);
+            
+            // To see that the constructor is private
+            int modifiers = constructor.getModifiers();
+            assertEquals("Constructor should be private", Modifier.PRIVATE, modifiers);
+        } catch (Exception x) {
+            fail("Exception in testSingletonTransaction: " + x.getMessage());
+        }
 	}
-}*/
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

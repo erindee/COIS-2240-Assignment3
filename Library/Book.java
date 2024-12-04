@@ -5,10 +5,10 @@ public class Book {
    
     // Constructor to validate book ID
     public Book(int id, String title) throws Exception {
-        if (!isValidId(id)) {
+    	this.id = id;
+        if (!isValidId()) {
         	throw new Exception("Invalid Book ID");
         }
-        this.id = id;
         this.title = title;
         this.isAvailable = true;
     }
@@ -45,7 +45,9 @@ public class Book {
     }
     }
     
-    public static boolean isValidId(int id) {
-    	return id >= 100 && id <= 999;
+    public boolean isValidId() {
+        return this.id >= 100 && this.id <= 999;
     }
+
 }
+
