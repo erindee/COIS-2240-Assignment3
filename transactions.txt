@@ -16,3 +16,7 @@
 2024-12-04 14:24:48: Erin returned Programming Book
 2024-12-04 14:25:07: Erin borrowed Programming Book
 2024-12-04 14:25:07: Erin returned Programming Book
+2024-12-04 14:26:03: Erin borrowed Programming Book
+2024-12-04 14:26:03: Erin returned Programming Book
+2024-12-04 14:26:40: Erin borrowed Programming Book
+2024-12-04 14:26:40: Erin returned Programming Book
