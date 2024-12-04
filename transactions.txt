@@ -8,3 +8,11 @@
 2024-12-04 13:04:44: Erin borrowed Programming Book
 2024-12-04 13:05:15: Erin borrowed Programming Book
 2024-12-04 14:12:16: Erin borrowed Programming Book
+2024-12-04 14:16:10: Erin borrowed Programming Book
+2024-12-04 14:19:11: Erin borrowed Programming Book
+2024-12-04 14:19:45: Erin borrowed Programming Book
+2024-12-04 14:20:36: Erin borrowed Programming Book
+2024-12-04 14:24:48: Erin borrowed Programming Book
+2024-12-04 14:24:48: Erin returned Programming Book
+2024-12-04 14:25:07: Erin borrowed Programming Book
+2024-12-04 14:25:07: Erin returned Programming Book

@@ -29,8 +29,7 @@ public class Transaction {
 			System.out.println(transactionDetails);
 			saveTransaction(transactionDetails);
         } else {
-            System.out.println("The book is not available.");
-        }
+        	 throw new Exception("Book already being borrowed");        }
         
 	} // To perform the return of a book
     public void returnBook(Book book, Member member) throws Exception {
@@ -41,7 +40,7 @@ public class Transaction {
             System.out.println(transactionDetails);
             saveTransaction(transactionDetails);
         } else {
-            System.out.println("This book was not borrowed by the member.");
+        	throw new Exception("Book has already been returned");
         }
     }
     private void saveTransaction(String transactionDetails) {
