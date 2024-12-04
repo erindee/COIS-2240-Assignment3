@@ -3,15 +3,15 @@ import java.util.Scanner;
 public class LibraryManagement {
     private Library library = new Library();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new LibraryManagement().run();
     }
 
-    private void run() {
+    private void run() throws Exception {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         
-        // Access for singleton instance of transaction
+        // For singleton instance access
         Transaction transaction = Transaction.getTransaction();
 
         while (running) {
@@ -53,11 +53,15 @@ public class LibraryManagement {
                     
                     scanner.nextLine();
 
-                    if (library.addBook(new Book(bookId, bookTitle))) {
-                    	System.out.println("Book added.");
-                    } else {
-                    	System.out.println("Failed to add new book. Book ID is duplicate.");
-                    }
+                    try {
+                    	if (library.addBook(new Book(bookId, bookTitle))) {
+                    		System.out.println("Book added");
+                    	} else {
+                    		System.out.println("Failed to add new book, Book is a duplicate ID");
+                    	}
+                    	} catch (Exception x) {
+                    		System.out.println("Error adding book: " + x.getMessage());
+                    	}
                     break;
                 case 3:
                 	// To borrow book
@@ -99,7 +103,7 @@ public class LibraryManagement {
         scanner.close();
         
 }
-private void performTransaction(Scanner scanner, Transaction transaction, boolean isBorrow) {
+private void performTransaction(Scanner scanner, Transaction transaction, boolean isBorrow) throws Exception {
 	System.out.print("Enter member ID: ");
 	int memberId = scanner.nextInt();
 	System.out.print("Enter book ID: ");

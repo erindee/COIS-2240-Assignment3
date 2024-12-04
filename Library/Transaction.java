@@ -21,7 +21,7 @@ public class Transaction {
 		return transactionInstance;
     }
 	// To perform a book being borrowed
-	public void borrowBook(Book book, Member member) {
+	public void borrowBook(Book book, Member member) throws Exception {
 		if (book.isAvailable()) {
 			book.borrowBook();
 			member.borrowBook(book);
@@ -33,7 +33,7 @@ public class Transaction {
         }
         
 	} // To perform the return of a book
-    public void returnBook(Book book, Member member) {
+    public void returnBook(Book book, Member member) throws Exception {
         if (member.getBorrowedBooks().contains(book)) {
             member.returnBook(book);
             book.returnBook();
